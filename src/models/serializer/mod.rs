@@ -10,6 +10,7 @@ mod vector;
 
 #[cfg(test)]
 mod tests;
+pub mod inverted_index_item;
 
 use super::buffered_io::{BufIoError, BufferManagerFactory};
 use super::cache_loader::NodeRegistry;

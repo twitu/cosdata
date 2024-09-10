@@ -52,7 +52,7 @@ fn calculate_path(target_dim_index: u32, current_dim_index: u32) -> Vec<usize> {
 #[derive(Clone)]
 pub struct InvertedIndexItem<T>
 where
-    T: Clone + 'static,
+    T: Clone + CustomSerialize + 'static,
 {
     pub dim_index: u32,
     pub implicit: bool,
@@ -60,33 +60,6 @@ where
     // TODO: benchmark if fixed size children array with lazy item refs
     //  yields better performance
     pub lazy_children: LazyItemMap<InvertedIndexItem<T>>,
-}
-
-impl<T> CustomSerialize for InvertedIndexItem<T>
-where
-    T: Clone + 'static,
-{
-    fn serialize(
-        &self,
-        bufmans: Arc<crate::models::buffered_io::BufferManagerFactory>,
-        version: crate::models::versioning::Hash,
-        cursor: u64,
-    ) -> Result<u32, crate::models::buffered_io::BufIoError> {
-        todo!()
-    }
-
-    fn deserialize(
-        bufmans: Arc<crate::models::buffered_io::BufferManagerFactory>,
-        file_index: crate::models::lazy_load::FileIndex,
-        cache: Arc<crate::models::cache_loader::NodeRegistry>,
-        max_loads: u16,
-        skipm: &mut std::collections::HashSet<u64>,
-    ) -> Result<Self, crate::models::buffered_io::BufIoError>
-    where
-        Self: Sized,
-    {
-        todo!()
-    }
 }
 
 impl<T> InvertedIndexItem<T>
